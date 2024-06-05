@@ -2,6 +2,7 @@
   "conventionalCommits.scopes": [
     "semantic-release",
     "prettier",
-    "theme"
+    "theme",
+    "header"
   ]
 }

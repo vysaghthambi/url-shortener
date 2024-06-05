@@ -1,9 +1,9 @@
-import styles from "./page.module.css";
+import URLShortener from "@/components/URLShortener/URLShortener";
 
 export default function Home() {
   return (
     <>
-      hi
+      <URLShortener />
     </>
   );
 }

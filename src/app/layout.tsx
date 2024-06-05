@@ -4,6 +4,8 @@ import { Experimental_CssVarsProvider as CssVarsProvider } from "@mui/material/s
 
 import { theme } from "@/utils/theme";
 
+import Header from "@/components/Header/Header";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,7 +22,8 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <CssVarsProvider theme={theme} defaultMode="dark">
-          {children}
+          <Header />
+          <main>{children}</main>
         </CssVarsProvider>
       </body>
     </html>

@@ -1,0 +1,3 @@
+.AppBar:global(.MuiAppBar-root) {
+  background-color: var(--mui-palette-background-default);
+}

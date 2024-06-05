@@ -1,0 +1,8 @@
+{
+  "conventionalCommits.scopes": [
+    "semantic-release",
+    "prettier",
+    "theme",
+    "header"
+  ]
+}

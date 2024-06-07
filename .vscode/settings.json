@@ -4,6 +4,7 @@
     "prettier",
     "theme",
     "header",
-    "home"
+    "home",
+    "next-auth"
   ]
 }

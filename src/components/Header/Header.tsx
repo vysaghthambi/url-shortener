@@ -13,6 +13,7 @@ export default function Header() {
         <Typography fontSize="2rem" fontWeight="700" color="primary.main" flexGrow={1}>
           <Link href="/">URL Shortener</Link>
         </Typography>
+        <Link href="/api/auth/signin">SignIn</Link>
       </Toolbar>
     </AppBar>
   );

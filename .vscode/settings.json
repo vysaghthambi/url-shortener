@@ -5,6 +5,7 @@
     "theme",
     "header",
     "home",
-    "next-auth"
+    "next-auth",
+    "prisma"
   ]
 }

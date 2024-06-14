@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -18,6 +18,12 @@ export default function URLShortener() {
   const [longUrl, setLongUrl] = useState<string>("");
   const [shortUrl, setShortUrl] = useState<string>("");
   const [copied, setCopied] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (longUrl) return;
+
+    setShortUrl("");
+  }, [longUrl])
 
   const handleUrlShorten = async () => {
     const shortenedUrl = await createShortUrl(longUrl);

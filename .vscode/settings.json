@@ -3,6 +3,11 @@
     "semantic-release",
     "prettier",
     "theme",
-    "header"
+    "header",
+    "home",
+    "next-auth",
+    "prisma",
+    "url-shortner",
+    "short-url"
   ]
 }

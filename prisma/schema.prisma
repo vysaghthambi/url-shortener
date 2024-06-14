@@ -13,17 +13,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model UserLimit {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  email     String   @unique
-  limit     Int      @default(3)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model User {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  email     String     @unique
+  shortUrls ShortUrl[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model ShortUrl {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  email     String
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
   longUrl   String
   shortUrl  String   @unique
   createdAt DateTime @default(now())

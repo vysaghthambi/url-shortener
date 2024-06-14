@@ -11,20 +11,16 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async session({ session }) {
-      if (!session.user) return session;
+    async signIn({ user }) {
+      const userData = await prisma.user.findUnique({
+        where: { email: user.email! },
+      });
 
-      const email = session.user?.email;
-
-      let userLimit = await prisma.userLimit.findUnique({ where: { email: email! } });
-
-      if (!userLimit) {
-        userLimit = await prisma.userLimit.create({ data: { email: email! } });
+      if (!userData) {
+        await prisma.user.create({ data: { email: user.email! } });
       }
 
-      session.user.urlLimit = userLimit.limit;
-
-      return session;
+      return true;
     },
   },
   secret: process.env.NEXT_AUTH_SECRET,

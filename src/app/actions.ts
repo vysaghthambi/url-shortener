@@ -7,6 +7,25 @@ import prisma from "@/lib/db";
 
 import { authOptions } from "./api/auth/[...nextauth]/options";
 
+const generateBase62 = async () => {
+  const hashString = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  while (true) {
+    let hashValue = "";
+
+    for (let i = 0; i < 7; i++) {
+      const random = Math.floor(Math.random() * 62);
+      hashValue = hashValue + hashString.charAt(random);
+    }
+
+    const urlData = await prisma.shortUrl.findUnique({ where: { shortUrl: hashValue } });
+
+    if (!urlData) {
+      return hashValue;
+    }
+  }
+};
+
 export const createShortUrl = async (url: string) => {
   const session = await getServerSession(authOptions);
 
@@ -20,14 +39,13 @@ export const createShortUrl = async (url: string) => {
 
   if (userUrls) return userUrls.shortUrl;
 
-  const encodedUrl = btoa(url);
-  const shortUrl = encodedUrl.slice(-5);
+  const encodedUrl = await generateBase62();
 
   const createdUrl = await prisma.shortUrl.create({
     data: {
       user: { connect: { email: session.user.email } },
       longUrl: url,
-      shortUrl: process.env.BASE_PATH + shortUrl,
+      shortUrl: process.env.BASE_PATH + encodedUrl,
     },
   });
 

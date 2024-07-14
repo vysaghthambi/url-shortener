@@ -1,7 +1,7 @@
 "use server";
 
 import { getServerSession } from "next-auth";
-import { permanentRedirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import prisma from "@/lib/db";
 
@@ -29,7 +29,7 @@ const generateBase62 = async () => {
 export const createShortUrl = async (url: string) => {
   const session = await getServerSession(authOptions);
 
-  if (!session?.user.email) permanentRedirect("/api/auth/signin");
+  if (!session?.user.email) redirect("/api/auth/signin");
 
   const userUrls = await prisma.shortUrl.findFirst({
     where: {

@@ -7,11 +7,11 @@ import { Montserrat } from "next/font/google";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 const darkPalette: PaletteOptions = {
-  primary: { main: "#8cb0d9" },
+  primary: { main: "#fff" },
   secondary: { main: "#f7fafc" },
   info: { main: "#4383cb" },
 
-  background: { default: "#0d1926", paper: "#1a324c" },
+  background: { default: "#2b2b2b", paper: "#1a324c" },
 };
 
 export const theme = extendTheme({

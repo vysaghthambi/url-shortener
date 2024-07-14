@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -18,14 +18,29 @@ export default function URLShortener() {
   const [longUrl, setLongUrl] = useState<string>("");
   const [shortUrl, setShortUrl] = useState<string>("");
   const [copied, setCopied] = useState<boolean>(false);
+  const [helperText, setHelperText] = useState<string>("");
 
-  useEffect(() => {
-    if (longUrl) return;
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (helperText) {
+      setHelperText("");
+    }
 
-    setShortUrl("");
-  }, [longUrl])
+    if (shortUrl) {
+      setShortUrl("");
+    }
+
+    setLongUrl(event.target.value);
+  };
 
   const handleUrlShorten = async () => {
+    try {
+      new URL(longUrl);
+    } catch (error) {
+      console.error(error);
+      setHelperText("Enter a valid URL");
+      return;
+    }
+
     const shortenedUrl = await createShortUrl(longUrl);
 
     setShortUrl(shortenedUrl);
@@ -44,8 +59,9 @@ export default function URLShortener() {
           placeholder="Paste your URL"
           fullWidth
           value={longUrl}
-          onChange={(event) => setLongUrl(event.target.value)}
+          onChange={handleChange}
           autoComplete="off"
+          helperText={helperText}
         />
         <StyledButton onClick={handleUrlShorten} disabled={!longUrl}>
           Shorten
@@ -53,7 +69,7 @@ export default function URLShortener() {
         {shortUrl && (
           <Tooltip title={copied ? "Copied" : "Click to copy"}>
             <Typography
-              color="secondary.main"
+              color="primary.main"
               fontSize="1.6rem"
               mt={2}
               onClick={handleCopyText}

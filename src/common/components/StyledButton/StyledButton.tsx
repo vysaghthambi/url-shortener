@@ -9,7 +9,7 @@ export const StyledButton = styled(Button)(({ theme }) => ({
   color: theme.palette.primary.main,
   padding: "0.5rem 2rem",
   textTransform: "uppercase",
-  border: `1px solid ${theme.palette.secondary.main}`,
+  border: `1px solid ${theme.palette.primary.main}`,
   borderRadius: 15,
   backgroundColor: "transparent",
   transition: "backgroundColor 500ms",
